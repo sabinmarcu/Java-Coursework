@@ -6,6 +6,7 @@ public class Runner{
 	public static final String baseURL = "http://www.ecs.soton.ac.uk/people/";
 	public static final String baseSearchURL = "https://www.google.com/search?q=";
 	public static final String baseAnagramURL = "http://wordsmith.org/anagram/anagram.cgi?t=1000&a=n&anagram=";
+	public static final String baseTranslateURL = "http://translate.google.com/#en/fr/";
 
 	// Variables to be used. Results will be held public
 	private String id;
@@ -35,6 +36,8 @@ public class Runner{
 		System.out.println("Done looking up Google");
 		lookupAnagram();
 		System.out.println("Done Looking up Anagrams");
+		lookupTranslate();
+		System.out.println("Done Looking up Anagrams");
 	}
 	private void lookupEcsPage() {
 		try {
@@ -59,21 +62,24 @@ public class Runner{
 		name = data.substring(first, last).trim();
 	}
 	private void lookupGoogleSearch() {
-		try{
-			// Google does not allow basic URL get requests, so we need to fake it a bit ...
-			URL theURL = new URL(Runner.baseSearchURL + name.replace(".", "").replace(" ", "+"));
-			URLConnection con = theURL.openConnection();
-			// Faking the User Agent string (gotten from the labs in the Zepler Building)
-			con.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:24.0) Gecko/20100101 Firefox/24.0");
-			// Moving forward ...
-			BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			String data = "", inputLine;
-			while (( inputLine = br.readLine() ) != null) data = data + inputLine;
-			parseGoogleSearch(data);
-		} catch (Exception exc) {
-			System.out.println("Error occurred while looking up the Google Search page.");
-			System.out.println(exc);
-			System.exit(1);
+		if (name == null || name.equals("ECS People")) System.out.print("Skipping ... ");
+		else {
+			try{
+				// Google does not allow basic URL get requests, so we need to fake it a bit ...
+				URL theURL = new URL(Runner.baseSearchURL + name.replace(".", "").replace(" ", "+"));
+				URLConnection con = theURL.openConnection();
+				// Faking the User Agent string (gotten from the labs in the Zepler Building)
+				con.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:24.0) Gecko/20100101 Firefox/24.0");
+				// Moving forward ...
+				BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				String data = "", inputLine;
+				while (( inputLine = br.readLine() ) != null) data = data + inputLine;
+				parseGoogleSearch(data);
+			} catch (Exception exc) {
+				System.out.println("Error occurred while looking up the Google Search page.");
+				System.out.println(exc);
+				System.exit(1);
+			}
 		}
 	}
 	private void parseGoogleSearch(String data){
@@ -86,20 +92,23 @@ public class Runner{
 		}
 	}
 	private void lookupAnagram() {
-		String baseURL = Runner.baseAnagramURL + name.replace(".", "").replace(" ", "+");
-		try {
-			// Constructing the URL and Buffers and preparing the local variables
-			URL theURL = new URL(baseURL);
-			BufferedReader br = new BufferedReader(new InputStreamReader(theURL.openStream()));
-			String data = "";
-			String inputLine;
-			// Reading the URL data
-			while (( inputLine = br.readLine() ) != null) data = data + inputLine;
-			// And finally parsing the results.
-			parseAnagram(data);
-		} catch (Exception exc) {
-			System.out.println("Error occurred while looking up the Anagram page. (" + baseURL + ")[" + exc + "]");
-			System.exit(1);
+		if (name == null || name.equals("ECS People")) System.out.print("Skipping ... ");
+		else {
+			String baseURL = Runner.baseAnagramURL + name.replace(".", "").replace(" ", "+");
+			try {
+				// Constructing the URL and Buffers and preparing the local variables
+				URL theURL = new URL(baseURL);
+				BufferedReader br = new BufferedReader(new InputStreamReader(theURL.openStream()));
+				String data = "";
+				String inputLine;
+				// Reading the URL data
+				while (( inputLine = br.readLine() ) != null) data = data + inputLine;
+				// And finally parsing the results.
+				parseAnagram(data);
+			} catch (Exception exc) {
+				System.out.println("Error occurred while looking up the Anagram page. (" + baseURL + ")[" + exc + "]");
+				System.exit(1);
+			}
 		}
 	}
 	private void parseAnagram(String data){
@@ -122,9 +131,38 @@ public class Runner{
 		} catch (Exception exc) {
 		}
 	}
+	private void lookupTranslate() {
+		if (name == null || name.equals("ECS People")) System.out.print("Skipping ... ");
+		else {
+			String baseURL = Runner.baseTranslateURL + ("My name is " + name.replace(".", "")).replace(" ", "%20");
+			try {
+				// Constructing the URL and Buffers and preparing the local variables
+				URL theURL = new URL(baseURL);
+				URLConnection con = theURL.openConnection();
+				System.out.println(baseURL);
+				// Faking the User Agent string (gotten from the labs in the Zepler Building)
+				con.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:24.0) Gecko/20100101 Firefox/24.0");
+				BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				String data = "";
+				String inputLine;
+				// Reading the URL data
+				while (( inputLine = br.readLine() ) != null) data = data + inputLine;
+				// And finally parsing the results.
+				parseTranslate(data);
+			} catch (Exception exc) {
+				System.out.println("Error occurred while looking up the Translate page. (" + baseURL + ")[" + exc + "]");
+				System.exit(1);
+			}
+		}
+	}
+	private void parseTranslate(String data){
+		System.out.println("Parsing Translate");
+		System.out.println(data.indexOf("David"));
+		System.out.println(data.substring(data.indexOf("Dr")));
+	}
 	public void print(){
 		System.out.println("");
-		if (name == null) System.out.println("No name has been found!");
+		if (name == null || name.equals("ECS People")) System.out.println("No name has been found!");
 		else System.out.println("The name found is : " + name);
 		System.out.println("");
 		if (homepage == null) System.out.println("Could not find any homepage links on google!");
