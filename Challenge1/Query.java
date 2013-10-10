@@ -1,13 +1,13 @@
 import java.io.*;
 import java.net.*;
 
-public class Querry {
+public class Query {
 	private boolean repeat = false;
 	private BufferedReader br;
-	public Querry(InputStream io) {
+	public Query(InputStream io) {
 		br = new BufferedReader(new InputStreamReader(io));
 	}
-	public Querry(String url) {
+	public Query(String url) {
 		try {
 			repeat = true;
 			URL theURL = new URL(url);

@@ -1,7 +1,7 @@
 public class PageParser{
 	private String data;
 	private UserModel Model;
-	public PageParser(Querry q, UserModel m) {
+	public PageParser(Query q, UserModel m) {
 		data = q.get(); Model = m;
 	}
 	public void parse(String what){
