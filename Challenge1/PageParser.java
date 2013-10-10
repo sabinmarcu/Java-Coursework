@@ -9,6 +9,7 @@ public class PageParser{
 			case "ecs": this.parseECS(); break;
 			case "google": this.parseGoogle(); break;
 			case "anagram": this.parseAnagram(); break;
+			case "feeds": this.parseFeeds(); break;
 		}
 	}
 	private void parseECS() {
@@ -83,7 +84,17 @@ public class PageParser{
 			}
 			first = last;
 		} while (first > init);
+	}
 
+	private void parseFeeds(){
+		int first = 0, last, n = 3, i; String temp;
+		for (i = 0; i < n; i++) {
+			first = data.indexOf("ep_search_feed\"", first) + 18;
+			last = data.indexOf("</span>", first);
+			temp = sanitize(data.substring(first, last));
+			temp = temp.substring(6); temp = temp.substring(0, temp.indexOf("\""));
+			Model.feeds.add(temp.trim());
+		}
 	}
 
 	private String sanitize(String data) {

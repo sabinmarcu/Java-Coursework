@@ -41,6 +41,11 @@ public class Printer{
 			}
 			System.out.print("\n");
 		}
+		System.out.println("************************************************************************************************************");
+		System.out.println("Feeds :\n");
+		System.out.println("    ATOM : " + m.feeds.get(0));
+		System.out.println("    RSS 1 : " + m.feeds.get(1));
+		System.out.println("    RSS 2 : " + m.feeds.get(2));
 		System.out.println("************************************************************************************************************\n");
 	}
 }

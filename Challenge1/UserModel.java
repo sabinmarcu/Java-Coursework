@@ -12,5 +12,6 @@ public class UserModel {
 	public List<String> people = new ArrayList<String>();
 	public List<String> searches = new ArrayList<String>();
 	public List<String> anagrams = new ArrayList<String>();
+	public List<String> feeds = new ArrayList<String>();
 
 }
