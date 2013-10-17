@@ -4,7 +4,7 @@ public class FunkyScene{
 	private static final float QUICKEN_FACTOR = 0.8f;
 
 	public int width, height, cycles = 1;
-	public FunkyBaseObject[] objects = new FunkyBaseObject[100];
+	public FunkyBaseObject[] objects = new FunkyBaseObject[OBJECTS_LIMIT];
 	public int objectsNumber = 0;
 	public FunkyCoordinate mouseOffsets = new FunkyCoordinate(0, 0);
 
