@@ -2,11 +2,20 @@ import java.io.*;
 import java.net.*;
 
 public class Query {
+
+	// If the Query refers to a URL page, then a repeat is strongly reccommended
 	private boolean repeat = false;
+	// I will need a BufferedReader to read from an InputStreamReader attached to a given stream (System.in or an URLConnection stream)
 	private BufferedReader br;
+
+	// When constructing the class, I get two cases : System.in or a URL string
+	// In this case, the BufferedReader-InputStreamReader set is constructed with System.in
 	public Query(InputStream io) {
 		br = new BufferedReader(new InputStreamReader(io));
 	}
+
+	// In this case, I will construct a URL element, and then a URLConnection to be able to fake the User-Agent (sample taken from the Zepler Labs - Ubuntu PC)
+	// Google for example gives a 403 on regular requests, so faking a real browser is a must
 	public Query(String url) {
 		try {
 			repeat = true;
@@ -19,6 +28,8 @@ public class Query {
 			System.exit(1);
 		}
 	}
+
+	// Get the data from the stream.
 	public String get() {
 		try {
 			if (!repeat) return br.readLine();

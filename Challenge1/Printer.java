@@ -1,4 +1,5 @@
 public class Printer{
+	// Just print out the data based on the model supplied
 	static void print(UserModel m) {
 		System.out.print("\n\n\n\n");
 		System.out.println("************************************************************************************************************");
