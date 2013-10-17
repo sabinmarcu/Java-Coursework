@@ -1,0 +1,42 @@
+body, html{
+	perspective: 1600px;
+	-webkit-perspective: 1600px;
+	perspective-origin: 50% 50%;
+	-webkit-perspective-origin: 50% 50%;
+	display: table;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666), color-stop(1, #222)) no-repeat #222;
+	width: 100%;
+	height: 100%;
+	line-height: 100%;
+}
+object {
+
+	/*display: inline;
+	margin: 0 auto;*/
+
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	margin: -250px 0 0 -350px;
+
+	transform-origin: 50% 50%;
+	-webkit-transform-origin: 50% 50%;
+	perspective-origin: 50% 50%;
+	-webkit-perspective-origin: 50% 50%;
+
+	-webkit-box-shadow: 0 0 25px black; 
+	-webkit-border-radius: 4px; 
+	-moz-box-shadow: 0 0 25px black; 
+	-moz-border-radius: 4px; 
+	-o-box-shadow: 0 0 25px black; 
+	-o-border-radius: 4px; 
+	-ms-box-shadow: 0 0 25px black; 
+	-ms-border-radius: 4px; 
+	box-shadow: 0 0 25px black; 
+	border-radius: 4px; 
+
+	overflow: hidden; 
+}

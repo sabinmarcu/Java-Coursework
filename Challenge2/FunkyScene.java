@@ -1,13 +1,14 @@
 public class FunkyScene{
 
-	private static final int OBJECTS_LIMIT = 100;
+	private static final int OBJECTS_LIMIT = 500;
 	private static final float QUICKEN_FACTOR = 0.8f;
 
 	public int width, height, cycles = 1;
 	public FunkyBaseObject[] objects = new FunkyBaseObject[100];
 	public int objectsNumber = 0;
+	public FunkyCoordinate mouseOffsets = new FunkyCoordinate(0, 0);
 
-	private int newObjectThreshold = 1000;
+	private int newObjectThreshold = 100;
 
 	public void tick() {
 		cycles++;
@@ -17,10 +18,18 @@ public class FunkyScene{
 		}
 	}
 
-	public void addObject() {
-		if (objectsNumber < OBJECTS_LIMIT)	{
-			objects[objectsNumber] = new FunkyBaseObject((int)(Math.random() * width), (int)(Math.random() * height));
+	private void _addObject(int x, int y) {
+		if (objectsNumber < OBJECTS_LIMIT - 1)	{
+			objects[objectsNumber] = new FunkyBaseObject(x, y);
 			objectsNumber++;
 		}
+	}
+
+	public void addObject(int x, int y) {
+		_addObject(x, y);
+	}
+
+	public void addObject() {
+		_addObject((int)(Math.random() * width), (int)(Math.random() * height));
 	}
 }
