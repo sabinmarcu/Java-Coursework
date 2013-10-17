@@ -10,22 +10,14 @@ import java.awt.event.*;
 	private FunkyScene Scene;
 	private FunkyPainter Painter;
 	private FunkyAnimator Animator;
-	private MouseListener Handler;
+	private FunkyHandler Handler;
 
 	public void start() {
 		final Graphics graphics = getGraphics();
 		Image img = createImage(getWidth(), getHeight());
 		Scene = new FunkyScene();
 		Animator = new FunkyAnimator(Scene);
-		Handler = new MouseListener(){
-			public void mouseClicked(MouseEvent e) {
-				Scene.addObject(e.getX(), e.getY());
-			}
-			public void mouseExited(MouseEvent e) {}
-			public void mouseEntered(MouseEvent e) {}
-			public void mouseReleased(MouseEvent e) {}
-			public void mousePressed(MouseEvent e) {}
-		};
+		Handler = new FunkyHandler(Scene);
 		Painter = new FunkyPainter(graphics, Animator, Scene, img, this);
 		timer = new Timer(true);
 		setup();
