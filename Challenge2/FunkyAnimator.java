@@ -13,7 +13,7 @@ public class FunkyAnimator {
 			for (i = 0; i < Scene.objectsNumber; i++) {
 				obj = Scene.objects[i];
 				obj.move();
-				if (obj.coords.x > Scene.height || obj.coords.x < 0) obj.force.bounceX();
+				if (obj.coords.x > Scene.width || obj.coords.x < 0) obj.force.bounceX();
 				if (obj.coords.y > Scene.height || obj.coords.y < 0) obj.force.bounceY();
 			}
 		Scene.tick();

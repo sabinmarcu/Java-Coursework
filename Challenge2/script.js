@@ -14,4 +14,11 @@
 		for (index in PREFIXES) string += PREFIXES[index] + "transform: rotateY(" + offsets.x + "deg) rotateX(" + offsets.y + "deg);"
 		obj.setAttribute("style", string);
 	});
+	window.addEventListener("click", function(e){
+		if (e.target.tagName == "OBJECT") return false;
+
+		window.is3DAnimated = !!! window.is3DAnimated;
+
+		if (!window.is3DAnimated) document.getElementById("JavaApplet").setAttribute("style", "");
+	});
 })()

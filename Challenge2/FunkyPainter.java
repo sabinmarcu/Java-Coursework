@@ -33,7 +33,7 @@ public class FunkyPainter extends TimerTask  {
 
 	private void paint() {
 		int i;
-		gfx.clearRect(0, 0, Scene.height, Scene.height);
+		gfx.clearRect(0, 0, Scene.width, Scene.height);
 
 		if (Scene.objectsNumber > 0)
 			for (i = 0; i < Scene.objectsNumber; i++)
@@ -44,7 +44,7 @@ public class FunkyPainter extends TimerTask  {
 		trans.setTransform(identity);
 		// trans.rotate(Math.atan((Scene.mouseOffsets.y + 1) / (Scene.mouseOffsets.x + 1)), Scene.width / 2, Scene.height / 2);
 
-		graphics.clearRect(0, 0, Scene.height, Scene.height);
+		graphics.clearRect(0, 0, Scene.width, Scene.height);
 		graphics.setTransform(trans);
 		graphics.drawImage(offscreenImage, 0, 0, Applet);
 	}

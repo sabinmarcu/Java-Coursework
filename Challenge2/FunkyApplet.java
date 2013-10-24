@@ -14,7 +14,7 @@ import java.awt.event.*;
 
 	public void start() {
 		final Graphics graphics = getGraphics();
-		Image img = createImage(getHeight(), getHeight());
+		Image img = createImage(getWidth(), getHeight());
 		Scene = new FunkyScene();
 		Animator = new FunkyAnimator(Scene);
 		Handler = new FunkyHandler(Scene);
