@@ -11,7 +11,6 @@ import java.awt.event.*;
 	private FunkyAnimator Animator;
 	private Canvas canvas;
 	private FunkyPanel menu;
-	private FunkyHandler Handler;
 
 	public void init() {
 		setLayout(new GridBagLayout());
@@ -41,10 +40,8 @@ import java.awt.event.*;
 		timer = new ReschedulableTimer();
 		Image img = createImage(getHeight(), getHeight());
 		Scene = new FunkyScene();
-		Animator = new FunkyAnimator(Scene);
+		Animator = new FunkyAnimator(Scene, menu.settings);
 		Painter = new FunkyPainter(canvas.getGraphics(), Scene, img, menu.settings, this);
-		Handler = new FunkyHandler(Scene);
-		canvas.addMouseListener(Handler);
 		timer.schedule(new FunkyRunner(Painter, Animator, menu.settings), (long)(1000 / menu.settings.get("speed") ));
 		setup();
 	}
@@ -53,25 +50,17 @@ import java.awt.event.*;
 		timer.reschedule((long)(1000 / menu.settings.get("speed")));
 	}
 
-	public void addObject() {
-		Scene.addObject();
-	}
-
 	public void resetObjects(){
-		Scene.objects = new FunkyBaseObject[FunkyScene.OBJECTS_LIMIT];
-		Scene.objectsNumber = 0;
-		Painter.resetCanvas(); Painter.paintImage();
+		Painter.resetCanvas(); Painter.paintImage(); Painter.lastCoords = null;
 	}
 
 	public void stop() {
 		timer.cancel();
-		canvas.removeMouseListener(Handler);
 	}
 
 	public void setup() {
 		Scene.width = getWidth();
 		Scene.height = getHeight();
-		Scene.addObject();
 	}
 
 }

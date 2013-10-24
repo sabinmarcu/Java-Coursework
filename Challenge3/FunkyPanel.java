@@ -15,9 +15,9 @@ import java.util.*;
 			updateButton = new Button("Update"),
 			addButton = new Button("Add Object");
 	private TextField
-			//RField = new TextField("" + DEFAULTS.get("R")),
-			//rField = new TextField("" + DEFAULTS.get("r")),
-			//oField = new TextField("" + DEFAULTS.get("offset")),
+			RField = new TextField("" + DEFAULTS.get("R")),
+			rField = new TextField("" + DEFAULTS.get("r")),
+			oField = new TextField("" + DEFAULTS.get("offset")),
 			sField = new TextField("" + DEFAULTS.get("speed"));
 
 	public FunkyPanel(GridBagLayout layout, FunkyApplet applet) {
@@ -37,23 +37,23 @@ import java.util.*;
 		c.gridy = 0;
 		add(resetButton, c);
 
-		//c.fill = GridBagConstraints.HORIZONTAL;
-		//c.gridx = 0;
-		//c.gridy = 1;
-		//c.gridwidth = 2;
-		//add(RField, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 1;
+		c.gridwidth = 2;
+		add(RField, c);
 
-		//c.fill = GridBagConstraints.HORIZONTAL;
-		//c.gridx = 0;
-		//c.gridy = 2;
-		//c.gridwidth = 2;
-		//add(rField, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 2;
+		c.gridwidth = 2;
+		add(rField, c);
 
-		//c.fill = GridBagConstraints.HORIZONTAL;
-		//c.gridx = 0;
-		//c.gridy = 3;
-		//c.gridwidth = 2;
-		//add(oField, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 3;
+		c.gridwidth = 2;
+		add(oField, c);
 
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
@@ -75,9 +75,9 @@ import java.util.*;
 
 		drawButton.addActionListener(this);
 		resetButton.addActionListener(this);
-		//RField.addActionListener(this);
-		//rField.addActionListener(this);
-		//oField.addActionListener(this);
+		RField.addActionListener(this);
+		rField.addActionListener(this);
+		oField.addActionListener(this);
 		sField.addActionListener(this);
 		updateButton.addActionListener(this);
 		addButton.addActionListener(this);
@@ -101,11 +101,13 @@ import java.util.*;
 			sField.setText("" + settings.get("speed"));
 			Applet.resetObjects();
 			Applet.startOver();
-		} else if (e.getSource() == addButton) {
-			Applet.addObject();
-		} else if (e.getSource() == sField || e.getSource() == updateButton) {
+		} else if (e.getSource() == sField || e.getSource() == updateButton || e.getSource() == rField || e.getSource() == RField || e.getSource() == oField) {
 			settings.put("speed", Integer.parseInt(sField.getText()));
-			Applet.startOver();
+			settings.put("R", Integer.parseInt(RField.getText()));
+			settings.put("r", Integer.parseInt(rField.getText()));
+			settings.put("offset", Integer.parseInt(oField.getText()));
+			Applet.resetObjects();
+			if (e.getSource() == sField || e.getSource() == updateButton) Applet.startOver();
 		}
 	}
 }

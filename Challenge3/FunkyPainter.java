@@ -11,6 +11,7 @@ public class FunkyPainter {
 	private FunkyApplet Applet;
 	private Image offscreenImage;
 	private HashMap<String,Integer> Settings;
+	public FunkyCoordinate lastCoords;
 
 	public FunkyPainter(Graphics gfx, FunkyScene scene, Image img, HashMap<String,Integer> settings, FunkyApplet applet) {
 		this.Scene = scene;
@@ -35,15 +36,16 @@ public class FunkyPainter {
 	}
 
 	private void paintObjects(){
-		int i;
+		System.out.println("Drawing " + Scene.spiro.position.x + ", " + Scene.spiro.position.y);
+		int currentX = Scene.width / 2 + Scene.spiro.position.x, currentY =Scene.height / 2 + Scene.spiro.position.y;
 
-		if (Scene.objectsNumber > 0)
-			for (i = 0; i < Scene.objectsNumber; i++)
-				if (Scene.objects[i] != null)
-					Scene.objects[i].draw(gfx);
+		if (lastCoords == null) gfx.fillRect(currentX, currentY, 2, 2);
+		else gfx.drawLine(lastCoords.x, lastCoords.y, currentX, currentY);
+
+		lastCoords = new FunkyCoordinate(currentX, currentY);
 	}
 
 	public void paint() {
-		resetCanvas(); paintObjects(); paintImage();
+		paintObjects(); paintImage();
 	}
 }
