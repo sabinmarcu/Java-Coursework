@@ -1,6 +1,6 @@
 public class FunkyScene{
 
-	private static final int OBJECTS_LIMIT = 500;
+	public static final int OBJECTS_LIMIT = 500;
 	private static final float QUICKEN_FACTOR = 0.8f;
 
 	public int width, height, cycles = 1;

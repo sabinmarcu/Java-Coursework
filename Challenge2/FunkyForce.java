@@ -13,7 +13,7 @@ public class FunkyForce {
 
 		System.out.println(xPerTick + ", " + yPerTick);
 
-		dirX = (int) (Math.random() * 10);
+		dirX = (int) (1 + Math.random() * 10);
 		dirY = dirX % 2; dirX = dirX / 2;
 
 		if (dirX > 0) xPerTick = -xPerTick;

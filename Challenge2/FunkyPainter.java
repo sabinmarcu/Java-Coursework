@@ -1,24 +1,23 @@
-import java.util.TimerTask;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.event.*;
+import java.util.*;
 
-public class FunkyPainter extends TimerTask  {
+public class FunkyPainter {
 
 	private Graphics2D graphics;
 	private Graphics gfx;
-	private FunkyAnimator Animator;
 	private FunkyScene Scene;
 	private FunkyApplet Applet;
 	private Image offscreenImage;
-	private AffineTransform identity = new AffineTransform();
+	private HashMap<String,Integer> Settings;
 
-	public FunkyPainter(Graphics gfx, FunkyAnimator animator, FunkyScene scene, Image img, FunkyApplet applet) {
-		this.Animator = animator;
+	public FunkyPainter(Graphics gfx, FunkyScene scene, Image img, HashMap<String,Integer> settings, FunkyApplet applet) {
 		this.Scene = scene;
 		this.graphics = (Graphics2D) gfx;
 		this.offscreenImage = img;
 		this.gfx = this.offscreenImage.getGraphics();
+		this.Settings = settings;
 		this.Applet = applet;
 		initialDraw();
 	}
@@ -27,25 +26,24 @@ public class FunkyPainter extends TimerTask  {
 		graphics.fillRect(0, 0, Scene.width, Scene.height);
 	}
 
-	public void run() { Animator.tick();
-		this.paint();
+	public void resetCanvas() {
+		gfx.clearRect(0, 0, Scene.height, Scene.height);
 	}
 
-	private void paint() {
+	public void paintImage() {
+		graphics.drawImage(offscreenImage, 0, 0, Applet);
+	}
+
+	private void paintObjects(){
 		int i;
-		gfx.clearRect(0, 0, Scene.width, Scene.height);
 
 		if (Scene.objectsNumber > 0)
 			for (i = 0; i < Scene.objectsNumber; i++)
 				if (Scene.objects[i] != null)
 					Scene.objects[i].draw(gfx);
+	}
 
-		AffineTransform trans = new AffineTransform();
-		trans.setTransform(identity);
-		// trans.rotate(Math.atan((Scene.mouseOffsets.y + 1) / (Scene.mouseOffsets.x + 1)), Scene.width / 2, Scene.height / 2);
-
-		graphics.clearRect(0, 0, Scene.width, Scene.height);
-		graphics.setTransform(trans);
-		graphics.drawImage(offscreenImage, 0, 0, Applet);
+	public void paint() {
+		resetCanvas(); paintObjects(); paintImage();
 	}
 }
