@@ -7,8 +7,8 @@ public class FunkyForce {
 		int dirX, dirY;
 
 		while (xPerTick <= 0.1 || yPerTick <= 0.1){
-			xPerTick = (int)( Math.random() * 4 );
-			yPerTick = (int)( Math.random() * 4 );
+			xPerTick = (int)( Math.random() * 7 );
+			yPerTick = (int)( Math.random() * 7 );
 		}
 
 		System.out.println(xPerTick + ", " + yPerTick);
